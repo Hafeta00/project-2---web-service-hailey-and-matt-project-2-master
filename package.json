@@ -1,0 +1,23 @@
+{
+  "name": "waitlist-service",
+  "version": "1.0.0",
+  "description": "mysql --user root --password < schema.sql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JMU-CS-WebDev/project-2---web-service-hailey-and-matt-project-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JMU-CS-WebDev/project-2---web-service-hailey-and-matt-project-2/issues"
+  },
+  "homepage": "https://github.com/JMU-CS-WebDev/project-2---web-service-hailey-and-matt-project-2#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}

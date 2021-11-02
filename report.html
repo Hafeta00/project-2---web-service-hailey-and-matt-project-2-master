@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <title>Project 2 - Report Page</title>
+        <script src = "index.js"></script>
+        <style>
+            h1 {
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: lighter;
+                text-align: center;
+                color:rgb(42, 88, 109);
+                font-size: 2.5em;
+                
+            }
+
+            h3 {
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: lighter;
+                text-align: center;
+                color:rgb(60, 126, 156);
+            }
+
+            h5 {
+                margin-left: 20px;
+                margin-right: 20px;
+                padding-top: 0;
+
+                font-family: 'Courier New', Courier, monospace;
+                color:rgb(60, 126, 156);
+            }
+
+            h6 {
+                margin-left: 40px;
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: lighter;
+            }
+
+            body {
+                padding-bottom: 30px;
+            }
+
+            p {
+                margin-left: 20px;
+                margin-right: 20px;
+
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: lighter;
+                text-align: justify;
+            }
+
+            pre {
+                margin-left: 20px;
+                margin-right: 20px;
+
+                font-weight: lighter;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            Project 2 - Report
+        </h1>
+        <h3>
+            Hailey Bodycoat & Matt McKenzie
+        </h3>
+        <p>
+            For our web service, we decided to create the back-end of a restaurant waitlist application. Our data is stored in a database called Waitlist that contains several attributes that are typical of a waitlist. We have the customer's last name, first name, phone number, party size, current position in line and check-in date and time. Although the information is stored in our database, we have implemented the ability to add to the waitlist (create), look at the current waitlist (read), update information for a given customer on the waitlist (update), and delete someone off the waitlist (delete) through an Express-based web service. Each endpoint can be run through curl commands that are provided below and are easily named to understand their operations. When used in the brower, the endpoints return our data as JSON entries. Our service is offered through an Ngnix server and is only available through select ports due to the firewalls we have implemented for safety purposes. It runs on a PM2 process manager and supports cross-origin sharing using custom malware as well. All of our code, excluding private passwords, is available in our GitHub repository which has been shared with our reviewers and our teacher, Dr. Michael Stewart. We hope you enjoy our web service and we are excited to continue to work on it by adding an interactive front-end portion soon!
+            <br>
+            <br>
+            <h3>ENDPOINT EXPLANATION & CURL COMMANDS</h3>
+
+            <h5>POST (Create) </h5>
+            <p>The POST command allows for the addition on entries into the database. The command below will add a customer named Bob Jones to the waitlist.</p>
+<pre>
+    curl -v \
+    --header 'Content-Type: application/json' \
+    --data '{"cust_LName": "Jones", "cust_FName": "Bob", "phone_num": "1800101010", "party_size": 4, "position_inLine": 3, "checkIn_date": "2021-10-27", "checkIn_time": "14:15:20", "is_deleted": false }' \
+    http://localhost:5000/waitlist
+</pre>
+            <h5>GET (Read)</h5>
+            <p>The GET endpoint simply grabs information from the database based on the attributes provided in the URLs. Below we have included three different GET endpoint options to retrieve data in several different ways.</p>
+            <p>1. This command will retrieve the entire waitlist.</p>
+<pre>
+    curl -v http://localhost:5000/waitlist
+    OR
+    In the browser --> https://hb-blogging.me:8443/waitlist || https://boozegoblin.me:8443/waitlist
+</pre>
+            <p>2. This command will retrieve an entry on the waitlist by the given lastname.</p>
+<pre>
+    curl http://localhost:5000/waitlist/lastname/Bodycoat
+    OR
+    In the browser --> https://hb-blogging.me:8443/waitlist/lastname/Bodycoat || https://boozegoblin.me:8443/waitlist/lastname/Bodycoat
+</pre>
+            <p>3. This command will retrieve an entry on the waitlist by the given ID number.</p>
+<pre>
+    curl http://localhost:5000/waitlist/1
+    OR
+    In the browser --> https://hb-blogging.me:8443/waitlist/1 || https://boozegoblin.me:8443/waitlist/1
+</pre>
+            <h5>PATCH (Update)</h5>
+            <p>The PATCH endpoint can be used to update any fields associated with an entry that already exists within the database. The command below will reinstate an entry that was previously marked as 'deleted'. Another change that could be made to the data below would be to change cust_FName from 'Matthew' to 'Matt'.</p>
+<pre>
+  curl --header 'Content-Type: application/json' \
+  --request PATCH \
+  --data '{"cust_LName": "McKenzie", "cust_FName": "Matthew", "phone_num": "6504506693", "party_size": 2, "position_inLine": 2, "checkIn_date": "2021-10-25", "checkIn_time": "11:22:20", "is_deleted": false }' \
+  http://localhost:5000/waitlist/2
+</pre>
+            <h5>DELETE (Delete)</h5>
+            <p>
+                The DELETE endpoint has been implemented as a 'soft-delete' by using a boolean to mark whether its been deleted or not rather than fully removing it from the database. The command below will mark the entry associated with the given id as 'deleted' and it will not appear in searches unless changed back to false as shown in the PATCH command.
+            </p>
+<pre>
+  curl --request DELETE \
+  http://localhost:5000/waitlist/1
+</pre>
+        </p>
+    </body>
+</html>
